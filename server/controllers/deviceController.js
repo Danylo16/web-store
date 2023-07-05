@@ -63,6 +63,19 @@ class DeviceController{
         )
         return res.json(device)
     }
+
+    async delete(req, res) {
+        const { id } = req.body;
+      
+        const device = await Device.findByPk(id);
+        if (!device) {
+          return res.status(404).json({ error: 'Device not found' });
+        }
+      
+        await device.destroy();
+      
+        return res.json(device);
+      }
 }
 
 
