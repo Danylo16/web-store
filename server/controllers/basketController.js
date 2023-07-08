@@ -5,11 +5,26 @@ const ApiError = require('../error/apiError');
 
 
 class BasketController {
+    async getBasket(req, res, next){
+      const {userId} = req.body
+      if(!userId){
+        return next(ApiError.badRequest('No such User'))
+      }
+
+
+      try{
+
+
+
+      }catch(e){
+        return next(ApiError.badRequest(e.message));
+      }
+    }
     async removeFromBasket(req, res, next) {
-        const { userId, deviceId } = req.body;
+        const { basketId, deviceId } = req.body;
     
         try {
-          const basket = await Basket.findOne({ where: { userId } });
+          const basket = await Basket.findOne({ where: { basketId } });
     
           if (!basket) {
             return  next(ApiError.badRequest('No such basket'))
